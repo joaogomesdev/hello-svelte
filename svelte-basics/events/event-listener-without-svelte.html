@@ -1,0 +1,36 @@
+<style>
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  div {
+    height: 100%;
+  }
+</style>
+
+<div id="app"></div>
+
+<script>
+  let appElement = document.querySelector("#app");
+
+  let mouse = { x: 0, y: 0 };
+
+  function handleMouseMove(event) {
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
+
+    updateUI();
+  }
+
+  function updateUI() {
+    appElement.innerHTML = `
+      The mouse position is ${mouse.x} x ${mouse.y}
+    `;
+  }
+
+  appElement.addEventListener("mousemove", handleMouseMove);
+</script>

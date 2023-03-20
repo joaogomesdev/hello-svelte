@@ -1,0 +1,27 @@
+<div id="app"></div>
+
+<script>
+  let appElement = document.querySelector("#app");
+
+  let todos = [
+    { id: 1, text: "Todo 1", completed: true },
+    { id: 2, text: "Todo 2", completed: false },
+    { id: 3, text: "Todo 3", completed: false },
+    { id: 4, text: "Todo 4", completed: true },
+  ];
+
+  let todosHtml = "";
+
+  for (let todo of todos) {
+    let checked = todo.completed ? "checked" : null;
+
+    todosHtml += `
+      <li data-id=${todo.id}>
+        <input ${checked} type="checkbox"/>
+        <span>${todo.text}</span>
+      </li>
+    `;
+
+    appElement.innerHTML = `<ul>${todosHtml}</ul>`;
+  }
+</script>
