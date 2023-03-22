@@ -1,5 +1,9 @@
 # Notes
 
+## Usefull docs
+
+- [Loading data](https://kit.svelte.dev/docs/load)
+
 ## Using parent Layout Data
 
 We can use data from the parent that return data on the Layout usign `parent()` returned by the `event` on the `load` function.
