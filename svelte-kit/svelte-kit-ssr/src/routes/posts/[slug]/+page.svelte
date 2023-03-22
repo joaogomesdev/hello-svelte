@@ -16,3 +16,26 @@
 <div class="content">
 	{@html data.post.content}
 </div>
+
+<div class="posts">
+	<h3>Posts</h3>
+
+	<ul>
+		{#each data.posts as { title, slug }}
+			<li>
+				<a href="/posts/{slug}">{title}</a>
+			</li>
+		{/each}
+	</ul>
+</div>
+
+<style>
+	hgroup {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.posts {
+		margin-top: 2rem;
+	}
+</style>

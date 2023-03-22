@@ -1,18 +1,23 @@
 <script lang="ts">
-	async function handleSubscribe(event: Event) {
-		const form = event.target as HTMLFormElement
-		const data = new FormData(form)
+	import type { PageData } from './$types'
+	export let data: PageData
 
-		await fetch('/api/newsletter', {
-			method: 'POST',
-			body: data
-		})
-	}
+	// Instead of using allways data."something" we can use reactive declaration
+
+	// This is not a reactive declaration
+	// 	const { posts } = data
+	// This is a reactive declaration
+	$: ({ posts, message } = data)
 </script>
 
-<h1>Newsletter</h1>
+<h1>Home</h1>
 
-<form on:submit|preventDefault={handleSubscribe}>
-	<input type="email" name="email" />
-	<button type="submit">Subcribe</button>
-</form>
+<p>Showing {posts.length} posts.</p>
+
+<ul>
+	{#each posts as { slug, title }}
+		<li>
+			<a href={`/posts/${slug}`}>{title}</a>
+		</li>
+	{/each}
+</ul>
