@@ -3,7 +3,7 @@ import { json, type RequestHandler } from '@sveltejs/kit'
 
 export const GET: RequestHandler = async ({ url }) => {
 	// using URLSearchParams - MDN
-	const limit = Number(url.searchParams.get('limit')) ?? 30
+	const limit = Number(url.searchParams.get('limit') ?? 30)
 	const orderBy = url.searchParams.get('order') ?? 'asc'
 
 	const posts = await prismaClient.post.findMany({
@@ -12,6 +12,7 @@ export const GET: RequestHandler = async ({ url }) => {
 	})
 
 	// We can use UrlSearchParam as a state enabling to share a searched value by url
+	// We can use sveltekit-search-params
 
 	return json(posts)
 }

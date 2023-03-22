@@ -4,10 +4,6 @@
 	export let data: LayoutData
 </script>
 
-<svelte:head>
-	<title>Posts app</title>
-</svelte:head>
-
 <div class="layout">
 	<aside>
 		<nav>
