@@ -4,8 +4,6 @@ import type { PageServerLoad } from './$types'
 import { prismaClient } from '$lib/prisma'
 
 export const load: PageServerLoad = async ({ params }) => {
-	console.log(params)
-
 	const post = await prismaClient.post.findUnique({
 		where: {
 			slug: params.slug
