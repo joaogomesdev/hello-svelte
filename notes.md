@@ -9,7 +9,7 @@
 We can use data from the parent that return data on the Layout usign `parent()` returned by the `event` on the `load` function.
 
 ```ts
-export const load: PageServerLoad = async ({ params, parent }) => {
+export const load: PageServerLoad = async ({ parent }) => {
   const parentData = await parent();
   return parentData;
 };
@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ params, parent }) => {
 But we need to have attention to a watterfall network problem if we need to use an depending value, for `e.g`:
 
 ```ts
-export const load: PageServerLoad = async ({ params, parent }) => {
+export const load: PageServerLoad = async ({ parent }) => {
   // 1. Get the data from the parent first - Because parent 'load' function runs first ⏳
   const parentData = await parent();
 
@@ -33,7 +33,7 @@ export const load: PageServerLoad = async ({ params, parent }) => {
 Here is an example how we can solve this:
 
 ```ts
-export const load: PageServerLoad = async ({ params, parent }) => {
+export const load: PageServerLoad = async ({ parent }) => {
   // 1. This 'load' function fires off 🏃‍♂️
   const data = await getData();
 
