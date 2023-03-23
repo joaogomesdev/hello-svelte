@@ -1,4 +1,4 @@
-type Todo = { id: number; text: string; completed: boolean };
+export type Todo = { id: number; text: string; completed: boolean };
 
 let todos: Todo[] = [{ id: Date.now(), text: 'Todo', completed: false }];
 
@@ -16,7 +16,8 @@ export function addTodo(text: string) {
 }
 
 export function removeTodo(id: number) {
-	todos = todos.filter((todo) => todo.id == id);
+	console.log('REMOVE TODO', id);
+	todos = todos.filter((todo) => todo.id !== id);
 }
 
 export function clearTodos() {
