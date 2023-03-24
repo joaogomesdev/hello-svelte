@@ -1,6 +1,6 @@
 export type Todo = { id: number; text: string; completed: boolean };
 
-let todos: Todo[] = [{ id: Date.now(), text: 'Todo', completed: false }];
+let todos: Todo[] = [];
 
 export function getTodos() {
 	return todos;
