@@ -5,10 +5,6 @@
 	export let form: ActionData;
 </script>
 
-<pre>
-	{JSON.stringify(form, null, 2)}
-</pre>
-
 <h1>Login</h1>
 
 <form method="POST" use:enhance>
