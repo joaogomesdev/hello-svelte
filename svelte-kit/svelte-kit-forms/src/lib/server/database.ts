@@ -16,7 +16,6 @@ export function addTodo(text: string) {
 }
 
 export function removeTodo(id: number) {
-	console.log('REMOVE TODO', id);
 	todos = todos.filter((todo) => todo.id !== id);
 }
 

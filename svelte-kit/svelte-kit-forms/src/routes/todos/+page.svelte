@@ -1,48 +1,29 @@
 <script lang="ts">
-	import { invalidateAll } from '$app/navigation';
-	import type { PageData } from './$types';
-	import type { Data } from './+server';
+	import { enhance, type SubmitFunction } from '$app/forms';
+	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
+	export let form: ActionData;
 
-	let form: Data;
+	let isLoading = false;
 
-	async function addTodo(event: Event) {
-		const formElement = event.target as HTMLFormElement;
-		const data = new FormData(formElement);
+	const addTodo: SubmitFunction = (input) => {
+		// form validations
+		isLoading = true;
 
-		const response = await fetch(formElement.action, {
-			method: 'POST',
-			body: data
-		});
-
-		const responseData = await response.json();
-
-		form = responseData;
-
-		formElement.reset();
-
-		await invalidateAll();
-	}
-
-	async function removeTodo(event: Event) {
-		const formElement = event.target as HTMLFormElement;
-		const data = new FormData(formElement);
-
-		const response = await fetch(formElement.action, {
-			method: 'DELETE',
-			body: data
-		});
-
-		await invalidateAll();
-	}
+		return async ({ update }) => {
+			// do something after submit
+			isLoading = false;
+			await update();
+		};
+	};
 </script>
 
 <ul>
 	{#each data.todos as todo}
 		<li>
 			<span>{todo.text}</span>
-			<form on:submit|preventDefault={removeTodo} method="POST">
+			<form method="POST" action="?/removeTodo" use:enhance>
 				<input type="hidden" name="id" value={todo.id} />
 				<button type="submit" class="delete">❌</button>
 			</form>
@@ -50,12 +31,23 @@
 	{/each}
 </ul>
 
-<form action="" method="POST" on:submit|preventDefault={addTodo}>
+<form method="POST" action="?/addTodo" use:enhance={addTodo}>
 	<input type="text" name="todo" />
-	{#if form?.errors?.todo}
+	{#if form?.missing}
 		<p class="error">This field is required.</p>
 	{/if}
-	<button type="submit" class="add">+ Add todo</button>
+	<button
+		aria-busy={isLoading}
+		class="add"
+		disabled={isLoading}
+		class:secondary={isLoading}
+		type="submit"
+	>
+		{#if !isLoading}
+			+ Add todo
+		{/if}
+	</button>
+	<button formaction="?/clearTodos" class="secondary">Clear</button>
 </form>
 
 {#if form?.success}
